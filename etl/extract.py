@@ -189,8 +189,6 @@ def extract_foothill_classes(
     crn_nodes = soup.find_all(string=CRN_LABEL_RE)
     if not crn_nodes:
         print(f"No CRN markers found; URL: {r.url} (status {r.status_code})")
-        with open("debug_no_crn.html", "w", encoding="utf-8") as f:
-            f.write(r.text)
 
     for node in crn_nodes:
         crn_source = None
