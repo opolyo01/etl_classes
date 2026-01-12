@@ -13,6 +13,9 @@ BASE_URL = os.getenv(
 DB = os.getenv("FOOTHILL_DB", "foothill.db")
 
 QUARTER = os.getenv("FOOTHILL_QUARTER", "2026W")
+QUARTERS = [
+    q.strip() for q in os.getenv("FOOTHILL_QUARTERS", "").split(",") if q.strip()
+]
 DEPT = os.getenv("FOOTHILL_DEPT", "CS")
 
 # Network / crawling behavior

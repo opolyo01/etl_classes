@@ -1,15 +1,19 @@
 from etl.extract import extract_foothill_classes
 from etl.transform import normalize
 from etl.load import init_db, upsert
-from etl.config import QUARTER, DEPT
+from etl.config import QUARTER, QUARTERS, DEPT
 
 
 def main():
-    print("Extracting Foothill schedule...")
-    raw_rows = extract_foothill_classes(quarter=QUARTER, dept=DEPT)
+    quarters = QUARTERS or [QUARTER]
+
+    all_rows = []
+    for quarter in quarters:
+        print(f"Extracting Foothill schedule for {quarter}...")
+        all_rows.extend(extract_foothill_classes(quarter=quarter, dept=DEPT))
 
     print("Transforming...")
-    clean_rows = [normalize(r) for r in raw_rows]
+    clean_rows = [normalize(r) for r in all_rows]
 
     print("Loading into SQLite...")
     init_db()
